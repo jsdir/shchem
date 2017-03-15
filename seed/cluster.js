@@ -5,8 +5,8 @@ const processFile = require('./processFile');
 const fs = require('fs');
 const path = require('path');
 
-const clusterWorkerSize = require('os').cpus().length;
-const concurrency = 2;
+const clusterWorkerSize = 1; // require('os').cpus().length;
+const concurrency = 1;
 
 if (cluster.isMaster) {
   kue.app.listen(3000);
