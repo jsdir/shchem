@@ -2,7 +2,6 @@ const request = require("request");
 const fs = require('fs');
 const Xmlstream = require('xml-stream');
 
- 
 module.exports.molecules = function(req, res){
   var stream = fs.createReadStream('./Library1.xml');
   var xml = new Xmlstream(stream);

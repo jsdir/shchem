@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 Compounds
+  ul
+  each compound in compounds
+    li
+      h2 (#{compound.cid})
+      table
+        thead
+          tr
+            th Property
+            th Value
+        tbody
+          each prop in compound.data.props
+            tr
+              td #{prop.urn.label} (#{prop.urn.name})
+              td= prop.value.sval
