@@ -4,23 +4,17 @@ const BatchStream = require('batch-stream');
 
 const sq = require('../sq');
 const Compound = require('../models/compound');
+const mapDataToCompound = require('./mapDataToCompound');
 
 const readStream = fs.createReadStream(process.argv[2]);
 const stream = JSONStream.parse('PC_Compounds.*');
 
 const batch = new BatchStream({ size: 1000 });
 
-function getRow(data) {
-  return {
-    cid: data.id.id.cid,
-    data: JSON.stringify(data)
-  };
-}
-
 var total = 0;
 batch.on('data', function(data) {
   const query = sq.queryInterface.QueryGenerator.bulkInsertQuery(
-    'compounds', data.map(getRow)
+    'compounds', data.map(mapDataToCompound)
   ).slice(0, -1) + ' ON CONFLICT DO NOTHING;';
 
   sq.query(query).then(function() {
