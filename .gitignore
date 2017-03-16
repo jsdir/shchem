@@ -1,3 +1,5 @@
 node_modules
 *.xml
 npm-debug.log
+.env
+seed/asn/*

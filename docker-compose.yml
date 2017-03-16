@@ -1,0 +1,8 @@
+postgres:
+  image: postgres:9.5.5-alpine
+  environment:
+    POSTGRES_USER: "username"
+    POSTGRES_PASSWORD: "password"
+    POSTGRES_DB: "shchem_development"
+  ports:
+    - "5432:5432"

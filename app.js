@@ -4,23 +4,26 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var molecules = require('./controllers/data');
+var paginate = require('express-paginate');
+
 var index = require('./routes/index');
 var users = require('./routes/users');
+var compounds = require('./routes/compounds');
+
 var app = express();
 
-const request = require("request");
-const fs = require('fs');
+app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(paginate.middleware(10, 100)); // (default limit, max limit)
 
 app.use('/', index);
 app.use('/users', users);
-
+app.use('/compounds', compounds);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
