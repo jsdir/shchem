@@ -6,6 +6,7 @@ block content
   each compound in compounds
     li
       h2 (#{compound.cid})
+      img(src= "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" + compound.cid + "/PNG")
       table
         thead
           tr
