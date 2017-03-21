@@ -16,4 +16,8 @@ block content
           each prop in compound.data.props
             tr
               td #{prop.urn.label} (#{prop.urn.name})
-              td= prop.value.sval
+              td
+                = prop.value.sval
+                if prop.img
+                  div
+                    | !{prop.img}
