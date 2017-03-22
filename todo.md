@@ -1,5 +1,0 @@
-- Seeding
-  - [x] Insert compounds in batches
-  - [x] Show upload progress
-  - [x] Check error handling
-  - [ ] Decide on fields to index

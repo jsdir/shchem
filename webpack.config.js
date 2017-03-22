@@ -1,9 +1,11 @@
 module.exports = {
+  name: 'client',
+  context: __dirname + '/client',
   entry: [
-    './shchem/src/index.js'
+    './app.jsx'
   ],
   output: {
-    path: __dirname,
+    path: __dirname + '/server/bundle',
     filename: "bundle.js"
   },
   module: {
