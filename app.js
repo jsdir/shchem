@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var paginate = require('express-paginate');
 
+var api_v1 = require('./routes/api/v1');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var compounds = require('./routes/compounds');
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(paginate.middleware(10, 100)); // (default limit, max limit)
 
 app.use('/', index);
+app.use('/api/v1', api_v1);
 app.use('/users', users);
 app.use('/compounds', compounds);
 
