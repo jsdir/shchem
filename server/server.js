@@ -20,12 +20,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+if (process.env.NODE_ENV !== 'PRODUCTION') {
+  const Webpack = require('webpack');
+  const WebpackConfig = require('../webpack.config.js');
+  const WebpackDevMiddleware = require('webpack-dev-middleware');
+
+  app.use(WebpackDevMiddleware(Webpack(WebpackConfig), { noinfo: true }));
+}
+
 app.use(paginate.middleware(10, 100)); // (default limit, max limit)
 
-app.use('/', index);
 app.use('/api/v1', api_v1);
 app.use('/users', users);
 app.use('/compounds', compounds);
+app.use('*', index);
 
 // app.use(function(req, res, next) {
 //   var err = new Error('Not Found');
