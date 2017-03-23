@@ -5,6 +5,7 @@ import debounce from 'lodash/debounce'
 
 import Compound from '../components/Compound'
 import SearchResults from '../components/SearchResults'
+import { searchCompounds } from '../api'
 
 const getResult = c => ({
   text: c.name,
@@ -13,7 +14,6 @@ const getResult = c => ({
 
 const getDataSource = results => results.map(getResult)
 const filter = () => true
-const getJSON = res => res.json()
 
 export default
 class Search extends Component {
@@ -25,31 +25,27 @@ class Search extends Component {
   }
 
   state = {
+    loading: false,
     query: null,
-    results: [],
+    results: null
   }
 
-  setResults = results => this.setState({ results })
+  setResults = results => this.setState({
+    results,
+    loading: false
+  })
 
   updateInput = (query) => {
-    if (this.stop) {
-      return
-    }
-    fetch(`/api/v1/compounds/query?query=${encodeURIComponent(query)}`)
-      .then(getJSON)
-      .then(this.setResults)
-      .catch(err => {
-        throw err
-      })
+    this.setState({ loading: true })
+    searchCompounds(query).then(this.setResults)
   }
 
   handleUpdateInput = (query) => {
-    this.stop = false
     this.debouncedHandleUpdateInput(query)
   }
 
   handleNewRequest = (query) => {
-    this.stop = true
+    console.log('handleNewRequest')
   }
 
   handleMenuItemFocusChange = (event, newFocusIndex) => {
@@ -65,19 +61,26 @@ class Search extends Component {
       <div className="Search">
         <Paper className="Search__query">
           <h2>Search Prototype</h2>
-          <AutoComplete
-            menuCloseDelay={0}
-            fullWidth
-            hintText="Search all compounds"
-            dataSource={getDataSource(this.state.results)}
-            onUpdateInput={this.handleUpdateInput}
-            menuProps={{
-              onMenuItemFocusChange: this.handleMenuItemFocusChange
-            }}
-            onNewRequest={this.handleNewRequest}
-            animated={false}
-            filter={filter}
-          />
+          <div className="Search__input-row">
+            <AutoComplete
+              className="Search__input"
+              menuCloseDelay={0}
+              hintText="Search all compounds"
+              dataSource={getDataSource(this.state.results || [])}
+              onUpdateInput={this.handleUpdateInput}
+              menuProps={{
+                onMenuItemFocusChange: this.handleMenuItemFocusChange,
+              }}
+              onNewRequest={this.handleNewRequest}
+              animated={true}
+              filter={filter}
+              fullWidth
+            />
+            <i
+              style={{opacity: this.state.loading ? 1 : 0}}
+              className="Search__loading fa fa-cog fa-spin"
+            />
+          </div>
         </Paper>
         <SearchResults
           compounds={this.state.results}

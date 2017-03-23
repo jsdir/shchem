@@ -1,3 +1,5 @@
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+
 .Search {
   position: relative;
 }
@@ -10,9 +12,32 @@
 }
 
 .Search__results .Compound {
-  width: 350px;
+  width: 320px;
+  float: left;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 .Search__results .Compound__header {
   min-height: 150px;
+}
+
+.Search__input-row {
+  display: block;
+  position: relative;
+}
+
+.Search__loading {
+  font-size: 23px;
+  position: absolute;
+  top: 14px;
+  right: 0px;
+  color: #777;
+
+  -webkit-transition: opacity .15s;
+  transition: opacity .15s;
+}
+
+.Compound--selected {
+  border: 5px solid #03A9F4;
 }
