@@ -19,7 +19,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 if (process.env.NODE_ENV !== 'production') {
   const Webpack = require('webpack');
@@ -29,6 +28,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(WebpackDevMiddleware(Webpack(WebpackConfig), { noinfo: true }));
 }
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(paginate.middleware(10, 100)); // (default limit, max limit)
 
 app.use('/api/v1', api_v1);
