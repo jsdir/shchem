@@ -1,8 +1,8 @@
-const Compound = require('../../../models/compound');
+const { CompoundView, SEARCHABLE } = require('../../../models/compoundView');
 var rdkit = require('../../../util/rdkit');
 
-module.exports.show = function(req, res){
-  Compound.findOne({
+module.exports.show = function(req, res) {
+  CompoundView.findOne({
     cid: req.params.cid
   }).then(compound => {
     data = {
@@ -16,5 +16,18 @@ module.exports.show = function(req, res){
       }))
     };
     res.json(data);
+  });
+};
+
+module.exports.query = function(req, res) {
+  conditions = SEARCHABLE.map((searchable) => {
+    const condition = {};
+    condition[searchable] = req.query.query;
+    return condition;
+  });
+  CompoundView.findAll({
+    where: { $or: conditions }
+  }).then((compounds) => {
+    res.json(compounds.map((compound) => compound.cid));
   });
 };
