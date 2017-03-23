@@ -2,8 +2,8 @@ const fs = require('fs');
 const JSONStream = require('JSONStream');
 const BatchStream = require('batch-stream');
 
-const sq = require('../sq');
-const Compound = require('../models/compound');
+const sq = require('../server/sq');
+const Compound = require('../server/models/compound');
 const mapDataToCompound = require('./mapDataToCompound');
 
 const readStream = fs.createReadStream(process.argv[2]);
