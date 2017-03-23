@@ -27,11 +27,11 @@ app.use('/api/v1', api_v1);
 app.use('/users', users);
 app.use('/compounds', compounds);
 
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+// app.use(function(req, res, next) {
+//   var err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
 app.use(function(err, req, res, next) {
  res.locals.message = err.message;
