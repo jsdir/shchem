@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-if (process.env.NODE_ENV !== 'PRODUCTION') {
+if (process.env.NODE_ENV !== 'production') {
   const Webpack = require('webpack');
   const WebpackConfig = require('../webpack.config.js');
   const WebpackDevMiddleware = require('webpack-dev-middleware');
