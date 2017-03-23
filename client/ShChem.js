@@ -49,6 +49,8 @@ class ShChem extends Component {
 	<Paper style={viewerStyle}> </Paper>
 	<Paper style={infoStyle}> </Paper>
 	</div>
+  <img src="/images/image.png" />
+
       </div>
     );
   }
