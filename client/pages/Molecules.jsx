@@ -56,8 +56,8 @@ const Molecules = () => (
         style={toolStyle}
       />
     </Paper>
-    <Paper style={viewerStyle}> </Paper>
-    <Paper style={infoStyle}> </Paper>
+    <Paper style={viewerStyle} />
+    <Paper style={infoStyle} />
   </div>
 )
 

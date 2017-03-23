@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   name: 'client',
   context: __dirname + '/client',
@@ -6,18 +8,23 @@ module.exports = {
   ],
   output: {
     path: __dirname + '/server/bundle',
-    filename: "bundle.js"
+    filename: 'bundle.js'
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.jsx?$/,
-      loader: 'babel-loader',
-      query: {
-        presets: ['es2015', 'react']
-      }
+      use: [{
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015', 'stage-0']
+        }
+      }]
+    }, {
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
     }]
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   }
- };
+};

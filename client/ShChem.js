@@ -6,10 +6,14 @@ import {
 } from 'react-router-dom'
 import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 import Molecules from './pages/Molecules';
 import Docker from './pages/Docker';
 import Search from './pages/Search';
+
+import './styles/style.css';
 
 class ShChem extends Component {
   render() {
