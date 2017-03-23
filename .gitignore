@@ -3,4 +3,4 @@ node_modules
 npm-debug.log
 .env
 seed/asn/*
-server/bundle/bundle.js
+server/public/bundle.js
