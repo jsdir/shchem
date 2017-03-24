@@ -1,20 +1,9 @@
 'use strict';
+const { SEARCHABLE } = require('../server/models/compoundView');
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    const extract = {
-      iupac_name_allowed: { label: 'IUPAC Name', name: 'Allowed' },
-      iupac_name_cas: { label: 'IUPAC Name', name: 'CAS-like Style' },
-      iupac_name_preferred: { label: 'IUPAC Name', name: 'Preferred' },
-      iupac_name_systematic: { label: 'IUPAC Name', name: 'Systematic' },
-      iupac_name_traditional: { label: 'IUPAC Name', name: 'Traditional' },
-      inchi_standard: { label: 'InChI', name: 'Standard' },
-      inchi_key_standard: { label: 'InChIKey', name: 'Standard' },
-      smiles_isomeric: { label: 'SMILES', name: 'Isomeric' },
-      smiles_canonical: { label: 'SMILES', name: 'Canonical' },
-    };
-
-    const columns = Object.entries(extract).map(([key, data]) => `
+    const columns = Object.entries(SEARCHABLE).map(([key, data]) => `
       (
         SELECT
         props.prop->'value'->>'sval'
@@ -36,7 +25,7 @@ module.exports = {
       FROM compounds
     `;
 
-    const indices = Object.keys(extract).map((key) => (
+    const indices = Object.keys(SEARCHABLE).map((key) => (
       () => queryInterface.addIndex('compounds_view', [key], {
         indexName: `${key}_index`
       })
