@@ -1,10 +1,11 @@
 const Sequelize = require('sequelize');
 const sq = require('../sq');
 
+// order by preference of match
 const SEARCHABLE = [
+  'iupac_name_preferred',
   'iupac_name_allowed',
   'iupac_name_cas',
-  'iupac_name_preferred',
   'iupac_name_systematic',
   'iupac_name_traditional',
   'inchi_standard',

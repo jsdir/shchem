@@ -26,7 +26,24 @@ module.exports.query = function(req, res) {
   CompoundView.findAll({
     where: { $or: conditions },
     limit: 10,
-  }).then((compounds) => {
-    res.json(compounds.map((compound) => compoundToJson(compound)));
-  });
+  }).then((compounds) => (
+    res.json(compounds
+               .map((compound) => compoundToJson(compound))
+               .map((compoundJson) => {
+        compoundJson.props.forEach((prop) => {
+          var startIndex = prop.value && prop.value.indexOf(req.query.query);
+          if (startIndex >= 0) {
+            compoundJson.match = {
+              label: prop.label,
+              name:  prop.name,
+              startIndex: startIndex,
+              endIndex: startIndex + req.query.query.length - 1,
+            };
+            return;
+          }
+        });
+        return compoundJson;
+      })
+    )
+  ));
 };
