@@ -13,7 +13,8 @@ var compoundToJson = (compound) => {
       // img: prop.urn.label == 'SMILES' && rdkit.fromSmiles(prop.value.sval),
     }))
   };
-  Object.entries(SEARCHABLE).forEach(([key, data]) => {
+  Object.keys(SEARCHABLE).forEach((key) => {
+    const data = SEARCHABLE[key]
     json.props.forEach((prop) => {
       if (prop.label == data.label && prop.name == data.name) {
         json[key] = prop.value
