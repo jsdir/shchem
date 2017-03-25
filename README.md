@@ -1,5 +1,7 @@
 # shchem
 
+[![Travis](https://img.shields.io/travis/martinshkreli/shchem.svg)]()
+
 Live at https://shchem.herokuapp.com
 
 ## Setup
