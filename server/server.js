@@ -33,7 +33,6 @@ app.use(paginate.middleware(10, 100)); // (default limit, max limit)
 
 app.use('/api/v1', api_v1);
 app.use('/users', users);
-app.use('/compounds', compounds);
 app.use('*', index);
 
 // app.use(function(req, res, next) {
