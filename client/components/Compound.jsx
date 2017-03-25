@@ -9,7 +9,7 @@ const Compound = props => (
   })}>
     <CardHeader
       className="Compound__header"
-      title={props.compound.name}
+      title={props.compound.name || 'title'}
       subtitle={`cid: ${props.compound.cid}`}
     />
     <CardMedia>
@@ -25,7 +25,7 @@ Compound.propTypes = {
   compound: PropTypes.shape({
     cid: PropTypes.number.isRequired,
     img: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
   }).isRequired,
   selected: PropTypes.bool,
 }

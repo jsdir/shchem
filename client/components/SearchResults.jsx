@@ -19,7 +19,11 @@ class SearchResults extends PureComponent {
   }
 
   renderCompound = (compound, i) => (
-    <Compound key={compound.cid} compound={compound} selected={i === 0} />
+    <Compound
+      key={compound.cid}
+      compound={compound}
+      selected={i === 0}
+    />
   )
 
   render() {

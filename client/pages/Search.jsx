@@ -6,10 +6,25 @@ import debounce from 'lodash/debounce'
 import Compound from '../components/Compound'
 import JsmeEditor from '../components/JsmeEditor';
 import SearchResults from '../components/SearchResults'
+import SearchInput from '../components/SearchInput'
 import { searchCompounds } from '../api'
 
+const renderMatch = (c) => {
+  if (!c.match) return c.name
+  const { match: { startIndex, endIndex } } = c
+  const text = c[c.match.prop]
+  return (
+    <span>
+      <span>{text.substring(0, startIndex)}</span>
+      <span className="Search__match">
+        {text.substring(startIndex, endIndex)}
+      </span>
+      <span>{text.substring(endIndex)}</span>
+    </span>
+  )
+}
 const getResult = c => ({
-  text: c.name,
+  text: renderMatch(c),
   value: c.cid
 })
 
@@ -49,8 +64,8 @@ class Search extends Component {
     console.log('handleNewRequest')
   }
 
-  handleMenuItemFocusChange = (event, newFocusIndex) => {
-    if (event) this.resultsNode.setIndex(newFocusIndex)
+  handleItemFocus = (index) => {
+    this.resultsNode.setIndex(index)
   }
 
   setResultsNode = node => {
@@ -68,18 +83,12 @@ class Search extends Component {
           <h2>Search Prototype</h2>
           <JsmeEditor onChange={this.onEditorChange} />
           <div className="Search__input-row">
-            <AutoComplete
+            <SearchInput
               className="Search__input"
-              menuCloseDelay={0}
               hintText="Search all compounds"
               dataSource={getDataSource(this.state.results || [])}
-              onUpdateInput={this.handleUpdateInput}
-              menuProps={{
-                onMenuItemFocusChange: this.handleMenuItemFocusChange,
-              }}
-              onNewRequest={this.handleNewRequest}
-              animated={true}
-              filter={filter}
+              onChange={this.handleUpdateInput}
+              onItemFocus={this.handleItemFocus}
               fullWidth
             />
             <i

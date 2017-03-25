@@ -32,7 +32,7 @@ module.exports.show = function(req, res) {
 
 module.exports.query = function(req, res) {
   conditions = Object.keys(SEARCHABLE).map((searchable) => ({
-    [searchable]: { $like: `%${req.query.query}%` }
+    [searchable]: { $ilike: `%${req.query.query}%` }
   }));
   CompoundView.findAll({
     where: { $or: conditions },
@@ -42,13 +42,13 @@ module.exports.query = function(req, res) {
                .map((compound) => compoundToJson(compound))
                .map((compoundJson) => {
         Object.keys(SEARCHABLE).forEach((selectable) => {
-          const value = compoundJson[selectable] || '';
-          const startIndex = value.indexOf(req.query.query);
+          const value = (compoundJson[selectable] || '').toLowerCase();
+          const startIndex = value.indexOf((req.query.query + '').toLowerCase());
           if (startIndex >= 0) {
             compoundJson.match = {
               prop: selectable,
               startIndex: startIndex,
-              endIndex: startIndex + req.query.query.length - 1,
+              endIndex: startIndex + req.query.query.length,
             };
             return;
           }
