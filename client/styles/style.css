@@ -38,19 +38,6 @@
   transition: opacity .15s;
 }
 
-.Search__match {
-  border-radius: 3px;
-  background-color: #FFEE58;
-}
-
 .Compound--selected {
   border: 5px solid #03A9F4;
-}
-
-.SearchInput__item {
-  padding: 0px !important;
-}
-
-.SearchInput__item > div > div {
-  padding: 10px !important;
 }
