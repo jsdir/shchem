@@ -1,15 +1,24 @@
 import React, { PropTypes, PureComponent } from 'react'
 
 class JsmeEditor extends PureComponent {
+  constructor() {
+    super(...arguments)
+    this.loadEditor = this.loadEditor.bind(this);
+  }
 
   static propTypes = {
+    onChange: React.PropTypes.func,
   }
 
   state = {
   };
 
   loadEditor() {
-    new JSApplet.JSME("jsme_container", "380px", "340px");
+    const self = this;
+    const editor = new JSApplet.JSME("jsme_container", "380px", "340px");
+    editor.setCallBack("AfterStructureModified", (e) => {
+      self.props.onChange(editor.smiles());
+    });
   }
 
   componentDidMount() {

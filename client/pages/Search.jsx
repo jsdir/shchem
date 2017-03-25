@@ -57,12 +57,16 @@ class Search extends Component {
     this.resultsNode = node
   }
 
+  onEditorChange = smiles => {
+    this.updateInput(smiles);
+  };
+
   render() {
     return (
       <div className="Search">
         <Paper className="Search__query">
           <h2>Search Prototype</h2>
-          <JsmeEditor />
+          <JsmeEditor onChange={this.onEditorChange} />
           <div className="Search__input-row">
             <AutoComplete
               className="Search__input"
