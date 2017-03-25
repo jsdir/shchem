@@ -38,6 +38,14 @@ cd seed
 This pulls a list of files from
 ftp://ftp.ncbi.nlm.nih.gov/pubchem/Compound/CURRENT-Full/ASN/
 
+### Running the app
+
+You need the following environment variables:
+
+- `DATABASE_URL`: path to your postgres database
+- `BABEL_PATH`: path to the `babel` binary of [Open Babel](http://openbabel.org/wiki/Main_Page)
+- `IDOCK_PATH`: path to the `idock` binary of [idock](https://github.com/HongjianLi/idock)
+
 ### Parser Information
 
 - Pubchem schema: ftp://ftp.ncbi.nih.gov/pubchem/specifications/pubchem.xsd
