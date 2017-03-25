@@ -1,6 +1,6 @@
 # shchem
 
-[![Travis](https://img.shields.io/travis/martinshkreli/shchem.svg)](https://github.com/martinshkreli/shchem)
+[![Travis](https://img.shields.io/travis/martinshkreli/shchem.svg)](https://travis-ci.org/martinshkreli/shchem)
 
 Live at https://shchem.herokuapp.com
 
