@@ -26,7 +26,7 @@ class JsmeEditor extends PureComponent {
       window.jsmeOnLoad = this.loadEditor;
     }
     else {
-      loadEditor();
+      this.loadEditor();
     }
   }
 
