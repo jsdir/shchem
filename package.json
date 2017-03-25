@@ -1,6 +1,9 @@
 {
   "name": "chemistry",
   "version": "0.0.0",
+  "engines": {
+    "node": ">=6.10.1"
+  },
   "private": true,
   "scripts": {
     "start": "node server/index.js",
@@ -8,7 +11,7 @@
     "postinstall": "npm run build",
     "seed-compounds": "cd seed && ./download.sh",
     "test": "npm run test-server && npm run test-client",
-    "test-server": "./node_modules/.bin/mocha server/test/**/*_test.js",
+    "test-server": "./node_modules/.bin/mocha -r server/test/test_loader.js server/test/**/*_test.js",
     "test-client": "echo \"no client tests yet\"",
     "psql": "PGPASSWORD=password psql -h localhost -p 5432 -d shchem_development -U username"
   },
