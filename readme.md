@@ -43,6 +43,28 @@ ftp://ftp.ncbi.nlm.nih.gov/pubchem/Compound/CURRENT-Full/ASN/
 - Pubchem schema: ftp://ftp.ncbi.nih.gov/pubchem/specifications/pubchem.xsd
 - Example JSON record: https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/1650002/record/JSON/
 
+## Testing
+
+To test everything:
+```sh
+npm test
+```
+
+To only test the client:
+```sh
+npm run test-client
+```
+
+To only test the server:
+```sh
+npm run test-server
+```
+
+Run server tests on file change:
+```sh
+npm run test-server -- -w
+```
+
 ## Other Resources
 
 - Molecular Docking
