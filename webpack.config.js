@@ -13,12 +13,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.jsx?$/,
-      use: [{
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015', 'stage-0']
-        }
-      }]
+      use: ['babel-loader']
     }, {
       test: /\.css$/,
       use: ['style-loader', 'css-loader']

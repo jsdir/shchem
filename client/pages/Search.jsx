@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper'
 import debounce from 'lodash/debounce'
 
 import Compound from '../components/Compound'
+import JsmeEditor from '../components/JsmeEditor';
 import SearchResults from '../components/SearchResults'
 import { searchCompounds } from '../api'
 
@@ -56,11 +57,16 @@ class Search extends Component {
     this.resultsNode = node
   }
 
+  onEditorChange = smiles => {
+    this.updateInput(smiles);
+  };
+
   render() {
     return (
       <div className="Search">
         <Paper className="Search__query">
           <h2>Search Prototype</h2>
+          <JsmeEditor onChange={this.onEditorChange} />
           <div className="Search__input-row">
             <AutoComplete
               className="Search__input"

@@ -1,23 +1,24 @@
 const Sequelize = require('sequelize');
 const sq = require('../sq');
 
-const SEARCHABLE = [
-  'iupac_name_allowed',
-  'iupac_name_cas',
-  'iupac_name_preferred',
-  'iupac_name_systematic',
-  'iupac_name_traditional',
-  'inchi_standard',
-  'inchi_key_standard',
-  'smiles_isomeric',
-  'smiles_canonical',
-]
+// order by preference of match
+const SEARCHABLE = {
+  iupac_name_preferred: { label: 'IUPAC Name', name: 'Preferred' },
+  iupac_name_allowed: { label: 'IUPAC Name', name: 'Allowed' },
+  iupac_name_cas: { label: 'IUPAC Name', name: 'CAS-like Style' },
+  iupac_name_systematic: { label: 'IUPAC Name', name: 'Systematic' },
+  iupac_name_traditional: { label: 'IUPAC Name', name: 'Traditional' },
+  inchi_standard: { label: 'InChI', name: 'Standard' },
+  inchi_key_standard: { label: 'InChIKey', name: 'Standard' },
+  smiles_isomeric: { label: 'SMILES', name: 'Isomeric' },
+  smiles_canonical: { label: 'SMILES', name: 'Canonical' },
+};
 
 const columns = {
   cid: Sequelize.INTEGER,
   data: Sequelize.JSON,
 };
-SEARCHABLE.forEach((column) => {
+Object.keys(SEARCHABLE).forEach((column) => {
   columns[column] = Sequelize.TEXT;
 });
 
