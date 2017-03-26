@@ -6,7 +6,7 @@ export default
 class Docker extends Component {
   state = {
     ligandCid: null,
-    proteinId: null,
+    pdbLink: null,
     activeJobId: null,
     activeJobResults: null,
   }
@@ -27,15 +27,15 @@ class Docker extends Component {
     this.setState({ ligandCid: event.target.value })
   }
 
-  handleChangeProtein = event => {
-    this.setState({ proteinId: event.target.value })
+  handleChangePDBLink = event => {
+    this.setState({ pdbLink: event.target.value })
   }
 
   handleSubmit = event => {
     event.preventDefault()
     createJob({
       ligandCid: this.state.ligandCid,
-      proteinId: this.state.proteinId
+      pdbLink: this.state.pdbLink
     }).then(data => {
       this.setState({
         activeJobId: data.jobId,
@@ -49,8 +49,8 @@ class Docker extends Component {
       <form onSubmit={this.handleSubmit}>
         <label>Ligand CID</label>
         <input type="text" onChange={this.handleChangeLigand}/>
-        <label>Receptor Protein ID</label>
-        <input type="text" onChange={this.handleChangeProtein}/>
+        <label>PDB Link</label>
+        <input type="text" onChange={this.handleChangePDBLink}/>
         <button type="submit">Dock</button>
         {this.state.activeJobId &&
           <div>

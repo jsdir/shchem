@@ -5,7 +5,7 @@ var queue = require('../../../queue');
 module.exports.create = function(req, res) {
   queue.addDockingJob({
     ligandCid: req.body.ligandCid,
-    proteinId: req.body.proteinId
+    pdbLink: req.body.pdbLink
   }, function(jobId) {
     res.json({ jobId: jobId });
   });

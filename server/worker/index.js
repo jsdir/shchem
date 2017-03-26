@@ -7,7 +7,7 @@ queue.processDockingJob(function(job, done) {
   done(null, {
     foo: 'bar',
     ligandCid: job.data.ligandCid,
-    proteinId: job.data.proteinId
+    pdbLink: job.data.pdbLink
   });
 });
 
