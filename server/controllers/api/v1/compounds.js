@@ -37,6 +37,7 @@ module.exports.query = function(req, res) {
   CompoundView.findAll({
     where: { $or: conditions },
     limit: 10,
+    order: 'molecular_weight'
   }).then((compounds) => (
     res.json(compounds
                .map((compound) => compoundToJson(compound))

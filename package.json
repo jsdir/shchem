@@ -14,6 +14,7 @@
     "test": "npm run test-server && npm run test-client",
     "test-server": "./node_modules/.bin/mocha -r server/test/setup.js server/test/**/*_test.js",
     "test-client": "./node_modules/.bin/mocha --compilers js:babel-core/register -r client/test/setup.js client/test/**/*_test.jsx",
+    "update-view": "node server/tasks/updateView.js",
     "psql": "PGPASSWORD=password psql -h localhost -p 5432 -d shchem_development -U username"
   },
   "dependencies": {
