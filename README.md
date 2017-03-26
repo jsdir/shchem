@@ -67,6 +67,16 @@ Run server tests on file change:
 npm run test-server -- -w
 ```
 
+## Docking
+
+To run the worker:
+
+- Setup a redis instance, then:
+
+```sh
+npm run worker
+```
+
 ## Other Resources
 
 - Molecular Docking
