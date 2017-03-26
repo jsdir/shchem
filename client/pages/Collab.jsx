@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Collab = () => (
-  <div>Collab</div>
+  <div>Collaboration tools are coming soon!</div>
 )
 
 export default Collab
