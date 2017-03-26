@@ -9,9 +9,11 @@ import Paper from 'material-ui/Paper';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-import Molecules from './pages/Molecules';
-import Docker from './pages/Docker';
+import Home from './pages/Home';
 import Search from './pages/Search';
+import Docker from './pages/Docker';
+import Collab from './pages/Collab';
+import Help from './pages/Help';
 
 import './styles/style.css';
 
@@ -24,7 +26,7 @@ class ShChem extends Component {
             <FlatButton
               backgroundColor="#d3c324"
               hoverColor="#a6c325"
-              label="Molecule"
+              label="Home"
               containerElement={<Link to="/" />}
             />
             <FlatButton
@@ -52,9 +54,11 @@ class ShChem extends Component {
               containerElement={<Link to="/help" />}
             />
           </div>
-          <Route exact path="/" component={Molecules} />
-          <Route exact path="/docker" component={Docker} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/search" component={Search} />
+          <Route exact path="/docker" component={Docker} />
+          <Route exact path="/collab" component={Collab} />
+          <Route exact path="/help" component={Help} />
         </div>
       </Router>
     );
