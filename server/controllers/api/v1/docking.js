@@ -17,7 +17,7 @@ module.exports.start = function(req, res) {
       Promise.all(ligands.map(ligand => {
         return queue.addDockingJob({
           jobId: jobId,
-          pdbqt: pdbqt,
+          receptor: pdbqt,
           ligandCid: ligand.cid,
         }, () => {});
       }));
