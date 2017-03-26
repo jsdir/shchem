@@ -4,3 +4,4 @@ npm-debug.log
 .env
 seed/asn/*
 server/public/bundle.js
+.DS_Store
