@@ -3,7 +3,8 @@ const _ = require('lodash');
 const { PROPS } = require('../../server/models/compoundView');
 const sq = require('../sq');
 
-const columns = Object.entries(PROPS).map(([key, data]) => {
+const columns = Object.keys(PROPS).map((key) => {
+  const data = PROPS[key]
   const cond = _.chain(['name', 'label'])
     .map(dataKey => data.hasOwnProperty(dataKey)
       && `props.prop->'urn'->>'${dataKey}' = '${data[dataKey]}'`)

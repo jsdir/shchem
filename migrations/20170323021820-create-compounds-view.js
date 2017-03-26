@@ -3,7 +3,9 @@ const { SEARCHABLE } = require('../server/models/compoundView');
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    const columns = Object.entries(SEARCHABLE).map(([key, data]) => `
+    const columns = Object.keys(SEARCHABLE).map((key) => {
+      const data = SEARCHABLE[key];
+      return `
       (
         SELECT
         props.prop->'value'->>'sval'
@@ -12,8 +14,8 @@ module.exports = {
         ) props
         WHERE props.prop->'urn'->>'label' = '${data.label}'
         AND props.prop->'urn'->>'name' = '${data.name}'
-      ) AS ${key}
-    `);
+      ) AS ${key}`;
+    });
 
     const migration = `
       CREATE MATERIALIZED VIEW compounds_view AS
