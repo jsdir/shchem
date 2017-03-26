@@ -8,7 +8,7 @@ router.get('/compounds/query', compounds.query);
 router.get('/compounds/:cid', compounds.show);
 
 /* Docking */
-router.post('/docking/start/:structure', docking.start)
+router.get('/docking/start/:structure', docking.start)
 router.get('/docking/job/:id', docking.showJob)
 
 module.exports = router;
