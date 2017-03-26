@@ -11,17 +11,18 @@ module.exports.start = function(req, res) {
     return fetchRes.buffer();
   }).then(function(buffer) {
     const pdb = buffer.toString();
-    const pdbqt = bin.pdbToPdbqt(pdb);
-    const jobId = uuid();
-    CompoundView.findAll({ limit: 3 }).then(ligands => {
-      Promise.all(ligands.map(ligand => {
-        return queue.addDockingJob({
-          jobId: jobId,
-          receptor: pdbqt,
-          ligandCid: ligand.cid,
-        }, () => {});
-      }));
-      res.json({ jobId: jobId });
+    bin.pdbToPdbqt(pdb, (pdbqt) => {
+      const jobId = uuid();
+      CompoundView.findAll({ limit: 3 }).then(ligands => {
+        ligands.forEach(ligand => {
+          queue.addDockingJob({
+            jobId: jobId,
+            receptor: pdbqt,
+            ligandCid: ligand.cid,
+          }, () => {});
+        });
+        res.json({ jobId: jobId });
+      });
     });
   });
 };

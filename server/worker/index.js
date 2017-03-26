@@ -15,19 +15,22 @@ queue.processDockingJob(function(job, done) {
     var dir = bin.tmpDir();
 
     const inputFilePdbqt = path.join(dir, 'input.pdbqt');
-    fs.writeFileSync(inputFilePdbqt, job.data.receptor, 'utf-8');
+    fs.writeFileSync(inputFilePdbqt, job.data.receptor.toString(), 'utf-8');
 
     const ligandDir = path.join(dir, 'ligands');
     fs.mkdirSync(ligandDir);
 
     const ligandFile = path.join(ligandDir, `${ligand.cid}.smi`);
     const ligandFilePdbqt = path.join(ligandDir, `${ligand.cid}.pdbqt`);
-    fs.writeFileSync(ligandFile, ligand.smiles_isomeric, 'utf-8');
-    bin.smiToPdbqt('smi', ligandFile, 'pdbqt', ligandFilePdbqt);
-
-    const outputDir = path.join(dir, 'output');
-    const log = bin.idock(inputFilePdbqt, ligandDir, outputDir);
-    done(null, { log: log.toString('utf8') });
+    fs.writeFileSync(ligandFile, ligand.smiles_isomeric.toString(), 'utf-8');
+    bin.smiToPdbqt(ligandFile, ligandFilePdbqt, () => {
+      const outputDir = path.join(dir, 'output');
+      bin.idock(inputFilePdbqt, ligandDir, outputDir, (err, stdout, stderr) => {
+        const log = stdout;
+        console.log(`done with job ${job.data.jobId} (cid: ${job.data.ligandCid}): ${log}`);
+        done(null, { log: log.toString('utf8') });
+      });
+    });
   });
 });
 
