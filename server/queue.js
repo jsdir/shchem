@@ -1,9 +1,10 @@
 var Queue = require('bull');
 
-var dockingJobQueue = Queue('docking', 6379, '127.0.0.1');
+var url = process.env.REDIS_URL || 'redis://localhost:6379';
+var dockingJobQueue = Queue('docking', url);
 
 module.exports.addDockingJob = function(data, cb) {
-  dockingJobQueue.add(data).then(job => {
+  dockingJobQueue.add(data).then(function(job) {
     cb(job.jobId);
   });
 };
