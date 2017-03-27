@@ -23,7 +23,7 @@ queue.processStartDockingJob(function(job, done) {
             jobId: jobId,
             receptor: pdbqt,
             ligandCid: ligand.cid,
-          });
+          }, () => {});
         });
       });
     });
