@@ -1,11 +1,15 @@
 const Queue = require('bull');
 const redisClient = require('../shared/redisClient');
+const redisQueueClient = redisClient.create();
+const redisQueueSubscriber = redisClient.create();
 
 const queueOpts = {
   redis: {
     opts: {
       createClient: function(type){
-        return redisClient;
+        if (type == 'subscriber') return redisQueueSubscriber;
+        if (type == 'client') return redisQueueClient;
+        return redisClient.client;
       }
     }
   }

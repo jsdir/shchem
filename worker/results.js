@@ -1,4 +1,4 @@
-var client = require('../shared/redisClient');
+var client = require('../shared/redisClient').client;
 
 client.on("error", function (err) {
   console.log("Error " + err);
