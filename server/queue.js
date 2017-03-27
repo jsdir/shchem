@@ -1,9 +1,18 @@
-var Queue = require('bull');
-var redisClient = require('../shared/redisClient');
+const Queue = require('bull');
+const redisClient = require('../shared/redisClient');
 
-var seedJobQueue = Queue('seed', redisUrl);
-var startDockingJobQueue = Queue('startDocking', redisUrl);
-var dockingJobQueue = Queue('docking', redisUrl);
+const queueOpts = {
+  redis: {
+    opts: {
+      createClient: function(type){
+        return redisClient;
+      }
+    }
+  }
+};
+const seedJobQueue = Queue('seed', queueOpts);
+const startDockingJobQueue = Queue('startDocking', queueOpts);
+const dockingJobQueue = Queue('docking', queueOpts);
 
 module.exports.addSeedJob = function(filename) {
   seedJobQueue.add({ filename: filename });
