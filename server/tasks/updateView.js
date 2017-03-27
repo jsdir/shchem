@@ -33,14 +33,14 @@ const migration = `
   FROM compounds
   WITH NO DATA`;
 
-const indices = Object.keys(PROPS).map((key) => (
-  () => sq.addIndex('compounds_view', [key], {
-    indexName: `${key}_index`
-  })
-));
+const indices = [ () => sq.addIndex('compounds_view', ['cid'], { indexName: 'cid_index' }) ] +
+  Object.keys(PROPS).map((key) => (
+    () => sq.addIndex('compounds_view', [key], {
+      indexName: `${key}_index`
+    })
+  ));
 
 // TODO: Get this to not kill production
 sq.query('DROP MATERIALIZED VIEW IF EXISTS compounds_view')
   .then(() => sq.query(migration))
-  .then(() => sq.addIndex('compounds_view', ['cid'], { indexName: 'cid_index' }))
   .then(() => Promise.all(indices));
