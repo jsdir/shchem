@@ -5,12 +5,13 @@ export const searchCompounds = query => (
     .then(parseJSON)
 )
 
-export const createJob = data => (
-  fetch('/api/v1/jobs', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }).then(parseJSON)
+export const createJob = pdbId => (
+  fetch(`/api/v1/docking/start/${pdbId}`, {
+    method: 'post'
+  }).then(parseJSON).then(data => data.jobId)
+)
+
+export const getJob = jobId => (
+  fetch(`/api/v1/docking/job/${jobId}`)
+    .then(parseJSON)
 )

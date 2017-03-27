@@ -11,7 +11,7 @@ injectTapEventPlugin();
 
 import Home from './pages/Home';
 import Search from './pages/Search';
-import Docker from './pages/Docker';
+import Docking from './pages/Docking';
 import Collab from './pages/Collab';
 import Help from './pages/Help';
 
@@ -38,8 +38,8 @@ class ShChem extends Component {
             <FlatButton
               backgroundColor="#d3c324"
               hoverColor="#a6c325"
-              label="Docker"
-              containerElement={<Link to="/docker" />}
+              label="Docking"
+              containerElement={<Link to="/docking" />}
             />
             <FlatButton
               backgroundColor="#d3c324"
@@ -55,10 +55,10 @@ class ShChem extends Component {
             />
           </div>
           <Route exact path="/" component={Home} />
-          <Route exact path="/search" component={Search} />
-          <Route exact path="/docker" component={Docker} />
-          <Route exact path="/collab" component={Collab} />
-          <Route exact path="/help" component={Help} />
+          <Route path="/search" component={Search} />
+          <Route path="/docking" component={Docking} />
+          <Route path="/collab" component={Collab} />
+          <Route path="/help" component={Help} />
         </div>
       </Router>
     );
