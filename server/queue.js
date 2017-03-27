@@ -3,6 +3,7 @@ var Queue = require('bull');
 var url = process.env.REDIS_URL || 'redis://localhost:6379';
 var dockingJobQueue = Queue('docking', url);
 var startDockingJobQueue = Queue('startDocking', url);
+var seedJobQueue = Queue('seed', url);
 
 module.exports.addDockingJob = function(data, cb) {
   dockingJobQueue.add(data).then(function(job) {
@@ -10,8 +11,16 @@ module.exports.addDockingJob = function(data, cb) {
   });
 };
 
+module.exports.addSeedJob = function(filename) {
+  seedJobQueue.add({ filename: filename });
+};
+
 module.exports.processDockingJob = function(job, done) {
   dockingJobQueue.process(job, done);
+};
+
+module.exports.processSeedJob = function(job, done) {
+  seedJobQueue.process(job, done);
 };
 
 module.exports.onDockingJobCompleted = function(cb) {

@@ -61,4 +61,6 @@ queue.processDockingJob(function(job, done) {
   });
 });
 
+queue.processSeedJob(require('./processSeedJob'));
+
 console.log('started shchem worker');

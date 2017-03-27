@@ -19,6 +19,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 if (['production', 'test'].indexOf(process.env.NODE_ENV) === -1) {
+  const toureiro = require('toureiro');
+  app.use('/job-queue', toureiro());
+
   const Webpack = require('webpack');
   const WebpackConfig = require('../webpack.config.js');
   const WebpackDevMiddleware = require('webpack-dev-middleware');

@@ -24,8 +24,26 @@ Live at https://shchem.herokuapp.com
 
 #### Begin uploading the compound data
 
+For partially seeding the data locally, you can run:
+
 ```sh
 npm run seed-compounds
+```
+
+In production, you'll want to use the job queue to seed the entire database.
+Change .env to the production settings, then run:
+
+```sh
+npm run seed-compounds-job
+```
+
+Open `localhost:3000/job-queue` to view the progress.
+
+To run a partial seed, add a limit argument to process a fixed number of files.
+This is helpful for testing:
+
+```sh
+npm run seed-compounds-job 10
 ```
 
 ### Updating the list of compound files
