@@ -1,7 +1,7 @@
 require('dotenv').config();
-var queue = require('../queue');
-const bin = require('../util/bin');
-const { CompoundView } = require('../models/compoundView');
+var queue = require('../server/queue');
+const bin = require('../server/util/bin');
+const { CompoundView } = require('../server/models/compoundView');
 const fs = require('fs');
 const path = require('path');
 const results = require('./results');

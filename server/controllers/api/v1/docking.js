@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const queue = require('../../../queue');
 const bin = require('../../../util/bin');
 const { CompoundView } = require('../../../models/compoundView');
-const results = require('../../../worker/results');
+const results = require('../../../../worker/results');
 
 module.exports.start = function(req, res) {
   const structure = req.params.structure;
