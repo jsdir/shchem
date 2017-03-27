@@ -10,7 +10,7 @@ queue.processDockingJob(function(job, done) {
   console.log(`processing job ${job.data.jobId} (cid: ${job.data.ligandCid})`);
 
   CompoundView.findOne({
-    cid: job.data.ligandCid,
+    where: { cid: job.data.ligandCid },
   }).then(ligand => {
     var dir = bin.tmpDir();
 

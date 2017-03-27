@@ -26,7 +26,7 @@ var compoundToJson = (compound) => {
 
 module.exports.show = function(req, res) {
   CompoundView.findOne({
-    cid: req.params.cid
+    where: { cid: req.params.cid }
   }).then(compound => res.json(compoundToJson(compound)));
 };
 
