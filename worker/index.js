@@ -17,7 +17,7 @@ queue.processStartDockingJob(function(job, done) {
     const pdb = buffer.toString();
     bin.pdbToPdbqt(pdb, (pdbqt) => {
       const jobId = job.data.jobId;
-      CompoundView.findAll({ limit: 10 }).then(ligands => {
+      CompoundView.findAll({ limit: 3 }).then(ligands => {
         ligands.forEach(ligand => {
           queue.addDockingJob({
             jobId: jobId,
@@ -53,7 +53,7 @@ queue.processDockingJob(function(job, done) {
       bin.idock(inputFilePdbqt, ligandDir, outputDir, (err, stdout, stderr) => {
         const log = stdout;
         console.log(`done with job ${job.data.jobId} (cid: ${job.data.ligandCid}): ${log}`);
-        const score = Math.floor(Math.random() * 100);
+        var score = 0;
         results.addResult(job.data.jobId, job.data.ligandCid, score);
         done(null, { log: log.toString('utf8') });
       });
