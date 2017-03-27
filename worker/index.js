@@ -5,8 +5,32 @@ const { CompoundView } = require('../server/models/compoundView');
 const fs = require('fs');
 const path = require('path');
 const results = require('./results');
+const fetch = require('node-fetch');
 
 // see https://github.com/OptimalBits/bull
+
+queue.processStartDockingJob(function(job, done) {
+  const url = `https://files.rcsb.org/download/${job.data.structure.toUpperCase()}.pdb`;
+  fetch(url).then(function(fetchRes) {
+    return fetchRes.buffer();
+  }).then(function(buffer) {
+    const pdb = buffer.toString();
+    bin.pdbToPdbqt(pdb, (pdbqt) => {
+      const jobId = job.data.jobId;
+      CompoundView.findAll({ limit: 10 }).then(ligands => {
+        ligands.forEach(ligand => {
+          queue.addDockingJob({
+            jobId: jobId,
+            receptor: pdbqt,
+            ligandCid: ligand.cid,
+          });
+        });
+      });
+    });
+  });
+});
+
+
 queue.processDockingJob(function(job, done) {
   console.log(`processing job ${job.data.jobId} (cid: ${job.data.ligandCid})`);
 
