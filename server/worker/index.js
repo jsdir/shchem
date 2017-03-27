@@ -4,6 +4,7 @@ const bin = require('../util/bin');
 const { CompoundView } = require('../models/compoundView');
 const fs = require('fs');
 const path = require('path');
+const results = require('./results');
 
 // see https://github.com/OptimalBits/bull
 queue.processDockingJob(function(job, done) {
@@ -28,6 +29,8 @@ queue.processDockingJob(function(job, done) {
       bin.idock(inputFilePdbqt, ligandDir, outputDir, (err, stdout, stderr) => {
         const log = stdout;
         console.log(`done with job ${job.data.jobId} (cid: ${job.data.ligandCid}): ${log}`);
+        const score = Math.floor(Math.random() * 100);
+        results.addResult(job.data.jobId, job.data.ligandCid, score);
         done(null, { log: log.toString('utf8') });
       });
     });
