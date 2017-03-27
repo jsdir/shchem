@@ -26,7 +26,7 @@ class Docker extends Component {
     createJob(this.state.pdbId).then(this.navigateToJob)
   }
 
-  navigateToJob(jobId) {
+  navigateToJob = jobId => {
     this.props.history.push(`${this.props.match.url}/jobs/${jobId}`)
   }
 

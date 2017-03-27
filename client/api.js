@@ -6,9 +6,8 @@ export const searchCompounds = query => (
 )
 
 export const createJob = pdbId => (
-  fetch(`/api/v1/docking/start/${pdbId}`, {
-    method: 'post'
-  }).then(parseJSON).then(data => data.jobId)
+  fetch(`/api/v1/docking/start/${pdbId}`)
+    .then(parseJSON).then(data => data.jobId)
 )
 
 export const getJob = jobId => (

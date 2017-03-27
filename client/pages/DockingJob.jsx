@@ -1,4 +1,8 @@
 import React, { Component, PropTypes } from 'react'
+import LinearProgress from 'material-ui/LinearProgress'
+import Paper from 'material-ui/Paper'
+import CircularProgress from 'material-ui/CircularProgress'
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 
 import { getJob } from '../api'
 
@@ -22,24 +26,52 @@ class DockingJob extends Component {
   }
 
   reload = () => {
-    getJob(this.props.match.params.jobId).then(
-      job => this.setState({ job })
+    getJob(this.props.match.params.jobId).then(job => {
+      this.setState({ job })
+    })
+  }
+
+  renderResult(result) {
+    return (
+      <TableRow key={result.ligandCid}>
+        <TableRowColumn>{result.ligandCid}</TableRowColumn>
+        <TableRowColumn>{result.score}</TableRowColumn>
+      </TableRow>
     )
   }
 
   render() {
-    if (!this.state.job) {
+    const { job } = this.state
+
+    if (!job) {
       return (
-        <span>
-          <i className="fa fa-spinner fa-spin"/>
-          {' '}
-          Loading
-        </span>
+        <CircularProgress />
       )
     }
 
     return (
-      <pre>{JSON.stringify(this.props, null, 2)}</pre>
+      <Paper>
+        <div>Status: {job.done ? 'Done' : 'Processing'}</div>
+        <LinearProgress
+          mode="determinate"
+          max={1}
+          value={job.percent}
+        />
+        <Table>
+          <TableHeader
+            displaySelectAll={false}
+            adjustForCheckbox={false}
+          >
+            <TableRow>
+              <TableHeaderColumn>Ligand CID</TableHeaderColumn>
+              <TableHeaderColumn>Score</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false}>
+            {job.results.map(this.renderResult)}
+          </TableBody>
+        </Table>
+      </Paper>
     )
   }
 }
