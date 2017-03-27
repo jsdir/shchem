@@ -1,8 +1,4 @@
-var redis = require('redis');
-
-var redisUrl = require('../shared/redisUrl');
-
-var client = redis.createClient(redisUrl)
+var client = require('../shared/redisClient');
 
 client.on("error", function (err) {
   console.log("Error " + err);
