@@ -1,8 +1,7 @@
-var redis = require("redis"),
-    client = redis.createClient();
+var client = require('../shared/redisClient');
 
 client.on("error", function (err) {
-    console.log("Error " + err);
+  console.log("Error " + err);
 });
 
 module.exports.addResult = function(jobId, ligandCid, score) {
