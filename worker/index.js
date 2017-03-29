@@ -18,7 +18,7 @@ queue.processStartDockingJob(function(job, done) {
     const pdb = buffer.toString();
     bin.pdbToPdbqt(pdb, (pdbqt) => {
       const jobId = job.data.jobId;
-      CompoundView.findAll({ where: { cid: [173,174,175,176,177,178,179,180,181,182] } }).then(ligands => {
+      CompoundView.findAll({ where: { cid: { $lte: 10000 } } }).then(ligands => {
         ligands.forEach(ligand => {
           queue.addDockingJob({
             jobId: jobId,
