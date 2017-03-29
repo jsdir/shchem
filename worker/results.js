@@ -10,8 +10,8 @@ module.exports.addResult = function(jobId, ligandCid, score) {
 
 module.exports.getResults = function(jobId, cb) {
   client.zcard(jobId, (err, progress) => {
-    const total = 10;
-    client.zrange(jobId, 0, 4, 'withscores', (err, results) => {
+    const total = 9523;
+    client.zrange(jobId, 0, 9, 'withscores', (err, results) => {
       resultsFormatted = [];
       for (var i=0; i<results.length/2; i++) {
         resultsFormatted.push({
