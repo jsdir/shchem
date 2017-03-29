@@ -10,21 +10,22 @@ module.exports.addResult = function(jobId, ligandCid, score) {
 
 module.exports.getResults = function(jobId, cb) {
   client.zcard(jobId, (err, progress) => {
-    const total = 9523;
-    client.zrange(jobId, 0, 9, 'withscores', (err, results) => {
-      resultsFormatted = [];
-      for (var i=0; i<results.length/2; i++) {
-        resultsFormatted.push({
-          ligandCid: results[2*i],
-          score: results[2*i+1],
+    client.get(`${jobId}_count`, (err, total) => {
+      client.zrange(jobId, 0, 9, 'withscores', (err, results) => {
+        resultsFormatted = [];
+        for (var i=0; i<results.length/2; i++) {
+          resultsFormatted.push({
+            ligandCid: results[2*i],
+            score: results[2*i+1],
+          });
+        }
+        cb({
+          progress: progress,
+          total: total,
+          percent: progress / total,
+          done: progress == total,
+          results: resultsFormatted,
         });
-      }
-      cb({
-        progress: progress,
-        total: total,
-        percent: progress / total,
-        done: progress == total,
-        results: resultsFormatted,
       });
     });
   });
