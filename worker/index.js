@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const results = require('./results');
 const fetch = require('node-fetch');
+const csvParse = require('csv-parse/lib/sync');
 
 // see https://github.com/OptimalBits/bull
 
@@ -17,7 +18,7 @@ queue.processStartDockingJob(function(job, done) {
     const pdb = buffer.toString();
     bin.pdbToPdbqt(pdb, (pdbqt) => {
       const jobId = job.data.jobId;
-      CompoundView.findAll({ limit: 3 }).then(ligands => {
+      CompoundView.findAll({ where: { cid: [173,174,175,176,177,178,179,180,181,182] } }).then(ligands => {
         ligands.forEach(ligand => {
           queue.addDockingJob({
             jobId: jobId,
@@ -53,7 +54,15 @@ queue.processDockingJob(function(job, done) {
       bin.idock(inputFilePdbqt, ligandDir, outputDir, (err, stdout, stderr) => {
         const log = stdout;
         console.log(`done with job ${job.data.jobId} (cid: ${job.data.ligandCid}): ${log}`);
+
         var score = 0;
+        try {
+          const logFile = path.join(outputDir, 'log.csv');
+          const logCsv  = fs.readFileSync(logFile).toString('utf-8');
+          const csvData = csvParse(logCsv);
+          score = parseFloat(csvData[1][2]);
+        } catch (e) {}
+
         results.addResult(job.data.jobId, job.data.ligandCid, score);
         done(null, { log: log.toString('utf8') });
       });
