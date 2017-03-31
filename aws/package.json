@@ -1,0 +1,12 @@
+{
+  "name": "godel-chem-aws",
+  "version": "0.0.0",
+  "engines": {
+    "node": ">=6.10.1"
+  },
+  "scripts": {},
+  "dependencies": {
+    "csv": "^1.1.1",
+    "node-fetch": "^1.6.3"
+  }
+}
